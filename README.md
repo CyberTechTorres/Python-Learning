@@ -48,7 +48,7 @@ main()
 ```
 
 My key focus here is to provide scripting details for what function "is_valid()" does.<br/>
-We want to keep def main() untoched therefore it provides what we need already which is printing a result when it receives "True" or "False"<br/>
+We want to keep def main() untoched therefore it provides what we need already which is printing a result when it receives a Boolean return value of "True" or "False".<br/>
 
 def main() will call out to is_valid() by its "if is_valid(plate):" line. Which checks to see if input variable Plate is True or False. <br/>
 
