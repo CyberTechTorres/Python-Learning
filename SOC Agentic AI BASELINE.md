@@ -119,9 +119,9 @@ What OpenAI receives here is actually a string query in which we had created by 
  The rest of the following in this script within `query_log_analytics()` goes ahead and indexes to the variable `response` for its tables (aka logs) we received from our query, which then we convert into a CSV format with the help of Pandas pd. It's then and there where we created a dictionary again and no longer a string. <br>
 Our result tables is organized into a variable called "records". There's also an included variable "count" of the number of records. <br>
 
-Back to our main.py section (4rd Section)... <br>
-`number_of_records = law_query_results['count']` Is indexing to the "count" from our results and putting it under this new variable. <br>
-The next following lines of code we'll go ahead and display the number_of_records. And then if number_of_records is zero, we exit the program. 
+Back to our main.py section (4rd Section)...
+- `number_of_records = law_query_results['count']` Is indexing to the "count" from our results and putting it under this new variable. <br>
+- The next following lines of code we'll go ahead and display the number_of_records. And then if number_of_records is zero, we exit the program. 
 
 ### 5th. Section of the script
 we now proceed to the next lines of code in our main.py. 
