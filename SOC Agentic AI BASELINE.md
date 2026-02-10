@@ -97,4 +97,42 @@ In other words:
 - indexed table_name via `query_context["table_name"]`  = "table" argument for `validate_tables_and_fields()` function
 - indexed fields via `query_context["fields"]` = "field" argument for `validate_tables_and_fields()` function
 
+### 4th. Section of the script
+<img width="1140" height="380" alt="10th(4th_section_script)" src="https://github.com/user-attachments/assets/60b07ee9-d23d-4f3a-9b11-191fd84a33d0" /> 
+
+`EXECUTOR.query_log_analytics()` it's here where we're gathering all of our keys for their values to correspond to the parameters of what query_log_analytics() needs which then creates our query and send it over to log analytics <br>
+
+This is how query_log_analytics() interprets and processes the parameters received:
+<img width="1260" height="853" alt="11th" src="https://github.com/user-attachments/assets/3aec97a7-a1a8-42be-917c-6a7a2716a5f8" />
+
+This section in particular within EXECUTOR under that same `query_log_analytics()` is what sends it over to log analytics via:
+```
+response = log_analytics_client.query_workspace(
+        workspace_id=workspace_id,
+        query=user_query,
+        timespan=timedelta(hours=timerange_hours)
+
+```
+What OpenAI receives here is actually a string query in which we had created by pulling all the keys and values in this same query_log_analytics() function, which is now all under `user_query`. <br>
+`timespan` is the time span in which we allow the API to look back on. <br>
+
+ The rest of the following in this script within `query_log_analytics()` goes ahead and indexes to the variable `response` for its tables, which then we convert into a CSV format with the help of Pandas pd. It's then and there where we created a dictionary again and no longer a string. <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
