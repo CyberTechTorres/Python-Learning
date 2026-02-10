@@ -137,9 +137,9 @@ It's within `PROMPT_MANAGEMENT.build_threat_hunt_prompt()` here where we create 
 <img width="1149" height="359" alt="14th" src="https://github.com/user-attachments/assets/2c68e84e-c9f4-4179-b4e9-e4d32737997f" />
 
 Back to our main.py section (5th Section)... <br>
-Next, the `PROMPT_MANAGEMENT.SYSTEM_PROMPT_THREAT_HUNT` which is our system prompt for context and we assign it to `threat_hunt_system_message` variable. <br>
-Now, as a result, we have our `threat_hunt_user_message` which consists of our records, our query, and our user message. And now we also have the `threat_hunt_system_message` of how to interpret our `threat_hunt_user_message` <br>
-`threat_hunt_messages` will hold both variables In which We can index via 0 or 1 to gather whichever we'd like.<br>
+- Next, the `PROMPT_MANAGEMENT.SYSTEM_PROMPT_THREAT_HUNT` which is our system prompt for context and we assign it to `threat_hunt_system_message` variable.
+- Now, as a result, we have our `threat_hunt_user_message` which consists of our records, our query, and our user message. And now we also have the `threat_hunt_system_message` of how to interpret our `threat_hunt_user_message`
+- `threat_hunt_messages` will hold both variables in which we can index via 0 or 1 to gather whichever one we'd like.
 
 
 
