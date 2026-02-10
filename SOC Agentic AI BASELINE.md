@@ -102,7 +102,7 @@ In other words:
 
 `EXECUTOR.query_log_analytics()` it's here where we're gathering all of our keys for their values to correspond to the parameters of what query_log_analytics() needs which then creates our query and send it over to log analytics <br>
 
-This is how query_log_analytics() interprets and processes the parameters received:
+This is how `query_log_analytics()` interprets and processes the parameters received:
 <img width="1260" height="853" alt="11th" src="https://github.com/user-attachments/assets/3aec97a7-a1a8-42be-917c-6a7a2716a5f8" />
 
 This section in particular within EXECUTOR under that same `query_log_analytics()` is what sends it over to log analytics via:
@@ -116,9 +116,25 @@ response = log_analytics_client.query_workspace(
 What OpenAI receives here is actually a string query in which we had created by pulling all the keys and values in this same query_log_analytics() function, which is now all under `user_query`. <br>
 `timespan` is the time span in which we allow the API to look back on. <br>
 
- The rest of the following in this script within `query_log_analytics()` goes ahead and indexes to the variable `response` for its tables, which then we convert into a CSV format with the help of Pandas pd. It's then and there where we created a dictionary again and no longer a string. <br>
+ The rest of the following in this script within `query_log_analytics()` goes ahead and indexes to the variable `response` for its tables (aka logs) we received from our query, which then we convert into a CSV format with the help of Pandas pd. It's then and there where we created a dictionary again and no longer a string. <br>
+Our result tables is organized into a variable called "records". There's also an included variable "count" of the number of records. <br>
 
+Back to our main.py section (4rd Section)... <br>
+`number_of_records = law_query_results['count']` Is indexing to the "count" from our results and putting it under this new variable. <br>
+The next following lines of code we'll go ahead and display the number_of_records. And then if number_of_records is zero, we exit the program. 
 
+### 5th. Section of the script
+we now proceed to the next lines of code in our main.py. 
+Keep in mind we now have:
+- our user_message
+- our query (dictionary with its elements)
+- our results (Logs form our query)
+
+It's within `PROMPT_MANAGEMENT.build_threat_hunt_prompt()` here where we create our prompt for OpenAI to threat hunt for us using our log results. 
+<img width="1141" height="205" alt="13th(5th_section_script)" src="https://github.com/user-attachments/assets/df1a5929-8acc-481d-8077-71dd1faecf6c" />
+
+`def build_threat_hunt_prompt()` includes formatting instructions, the user_prompt, and of course our log_data which correlates with our results aka "records" within `law_query_results` variable
+<img width="1149" height="359" alt="14th" src="https://github.com/user-attachments/assets/2c68e84e-c9f4-4179-b4e9-e4d32737997f" />
 
 
 
