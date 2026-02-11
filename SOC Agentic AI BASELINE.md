@@ -6,33 +6,42 @@
 - Python
 - Log(N) Pacific Cyber Range
 
-##  High-Level Overview of What This Project Is All About
-This is a baseline AI agent SOC analyst (I will continue to add what's needed to make it more accurately automated)
-We are particularly communicating to OpenAI API. 
-We'll have the API then connect to Azure Log Analytics. 
-We will send in a KQL query to retrieve logs from Azure Log Analytics. 
-The logs retrieved will be quickly analyzed by OpenAI, which will look for IOCs or suspicious activity. 
-OpenAI will then send its findings over to us in a formatted, structured way that's easy to see. 
+## 🧠 High-Level Overview of What This Project Is All About
+This project implements a baseline AI-powered SOC analyst agent that automates log investigation by combining Azure Log Analytics, KQL, and the OpenAI API.<br>
+<br>At a high level, the system translates a user’s investigation request into a structured log query, retrieves relevant telemetry from Azure, and uses an LLM to analyze the results for indicators of compromise (IOCs) or suspicious behavior.<br>
 
-##  High-Level Technical Overview
+## ⚙️ End-to-End Workflow
+1️⃣ User Intent → Structured Query
+<br>2️⃣ Query Validation & Guardrails
+<br>3️⃣ Log Retrieval from Azure
+<br>4️⃣ AI-Powered Threat Hunting
+<br>5️⃣ Structured Security Findings
+
+
+## 🎯 What This Project Achieves
+- Converts natural language → structured KQL queries
+- Automates log triage and initial threat detection
+- Keeps AI usage cost-aware and policy-restricted
+- Returns machine-readable security findings instead of plain text
+- Serves as a foundation for a fully autonomous SOC assistant
 
 
 ### 1st. Section of the script
 
 <img width="1136" height="326" alt="1st_section" src="https://github.com/user-attachments/assets/f0e9a333-1636-4a78-84a5-45bd846ac2b7" />
 
-- `time` is to simply import a stopwatch. 
-- `coloroma` is what we'll use to color our text. 
-- `OpenAI` of course, is to communicate with OpenAI API
-- `DefaultAzureCredential` is what we'll use to log in with our credentials. 
-- `LogQueryClient` is to query our logs in Log Analytics. 
+- `time` Tracks how long key steps take (query + analysis). 
+- `coloroma` Formats console output with colors for status/warnings. 
+- `OpenAI` Sends prompts to the OpenAI API and parses responses.
+- `DefaultAzureCredential` Handles Azure sign-in via managed identity/env/CLI credentials. 
+- `LogQueryClient` Queries Log Analytics with KQL and returns tables/rows.
 
-- `UTILITIES` file is what we'll use to "sanitize" aka convert strings into structured syntax to be displayed and readable easily.
-- `_keys` of course, is our API key to communicate to OpenAI. 
-- `MODEL_MANAGEMENT` is where we will find the cost estimate and make sure that the motto is within reasonable usage boundaries. Theres imported "tikToken" for token estimates and GUARDRAILS for boundaries
-- `PROMPT_MANAGEMENT` this is where we define formatting instructions for our prompts, whether it be from system or user. This is where we also include our JSON structured function as "TOOLS"
-- `EXECUTOR` this is where we send and retrieve query results 
-- `GUARDRAILS` this is where we define boundaries for the tables allowed in our queries and allowed ChatGPT models to use with OpenAI API 
+- `UTILITIES` What does the "sanitizing" aka convert strings into structured syntax to be normalized.
+- `_keys` Our API key to communicate to OpenAI. 
+- `MODEL_MANAGEMENT` Handles token estimation, cost awareness, and model selection. Theres imported "tikToken" for token estimates and GUARDRAILS for boundaries
+- `PROMPT_MANAGEMENT` Defines system/user prompts and JSON tool schemas. Important "TOOLS" variable within here which defines our (function) schema.
+- `EXECUTOR` Manages OpenAI calls (sends) and Azure Log Analytics queries.
+- `GUARDRAILS` Enforces allowed tables, fields, and model boundaries.
 
 ### 2nd. Section of the script
 
@@ -129,11 +138,11 @@ response = log_analytics_client.query_workspace(
 - The next following lines of code we'll go ahead and display the `number_of_records`. And then if `number_of_records` is zero, we exit the program. 
 
 ### 5th. Section of the script
-we now proceed to the next lines of code in our main.py. 
-Keep in mind we now have:
-- our user_message
-- our query (dictionary with its elements)
-- our results (Logs form our query)
+We now proceed to the next lines of code in our main.py...
+<br>Keep in mind we now have:
+<br>1️⃣ user_message
+<br>2️⃣ query (dictionary with its elements)
+<br>3️⃣ results (Logs form our query)
 
 It's within `PROMPT_MANAGEMENT.build_threat_hunt_prompt()` here where we create our prompt for OpenAI to threat hunt for us using our log results. 
 <img width="1141" height="205" alt="13th(5th_section_script)" src="https://github.com/user-attachments/assets/df1a5929-8acc-481d-8077-71dd1faecf6c" />
