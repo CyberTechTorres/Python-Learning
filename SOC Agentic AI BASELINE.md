@@ -88,8 +88,10 @@ Heres what the `get_log_query_from_agent()` does:
 - `PROMPT_MANAGEMENT.TOOLS` this is the bread and butter for what the OpenAI will use as structure to create a function for what we want it to do. It's in within here where we include our parameters, which translate to conditions when OpenAI creates the function. One of our parameters is labeled as "required". These will be the required parameters that OpenAI will have to use in the function it creates from this JSON `TOOLS` file. 
 - So we use `tools=PROMPT_MANAGEMENT.TOOLS` to find our TOOL string JSON structure, OpenAI uses this JSON string structure to create our desired function. Now we specify the required parameters to use within that function called `required` which `openai_client.chat.completions.create()` refrences as `tool_choice`
 - We then use `json.loads` to convert the received OpenAI string results and convert it to JSON format.
+
   
-Back to our main.py section (3rd  Section)... <br>The result we get from `EXECUTOR.get_log_query_from_agent(openai_client, user_message, model=model)` is `unformatted_query_context` which is this big JSON list with dictionaries within. We now need to access those keys for their values to further format our results because we are not too sure yet what exactly OpenAI has given us. This is where we go ahead and create some if conditions to see if certain keys do exist, and then we could extract those values from those keys into a new variable in which we will call `query_context`
+<br>Back to our main.py section (3rd  Section)... <br>
+The result we get from `EXECUTOR.get_log_query_from_agent(openai_client, user_message, model=model)` is `unformatted_query_context` which is this big JSON list with dictionaries within. We now need to access those keys for their values to further format our results because we are not too sure yet what exactly OpenAI has given us. This is where we go ahead and create some if conditions to see if certain keys do exist, and then we could extract those values from those keys into a new variable in which we will call `query_context`
 
 It's within `UTILITIES.sanitize_query_context(unformatted_query_context)` where we will go ahead and fetch these keys and values to then have a more sanitized, formatted query. 
 This is what the function looks like:
@@ -150,7 +152,8 @@ It's within `PROMPT_MANAGEMENT.build_threat_hunt_prompt()` here where we create 
 `def build_threat_hunt_prompt()` includes formatting instructions, the `user_prompt`, and of course our `log_data` which correlates with our results aka `records` within `law_query_results` variable
 <img width="1149" height="359" alt="14th" src="https://github.com/user-attachments/assets/2c68e84e-c9f4-4179-b4e9-e4d32737997f" />
 
-Back to our main.py section (5th Section)... <br>
+
+<br>Back to our main.py section (5th Section)... <br>
 - Next, the `PROMPT_MANAGEMENT.SYSTEM_PROMPT_THREAT_HUNT` which is our system prompt for context and we assign it to `threat_hunt_system_message` variable.
 - Now, as a result, we have our `threat_hunt_user_message` which consists of our records, our query, and our user message. And now we also have the `threat_hunt_system_message` of how to interpret our `threat_hunt_user_message`
 - `threat_hunt_messages` will hold both variables in which we can index via 0 or 1 to gather whichever one we'd like.
@@ -179,6 +182,7 @@ Back to our main.py section (5th Section)... <br>
 <br>Let's look at our allowed models and its correlating limitations in which `choose_model(model, number_of_tokens)` references:<br>
 <img width="1250" height="233" alt="17th" src="https://github.com/user-attachments/assets/1203f70a-42cf-4fbe-9100-6c99546397cc" />
 
+
 <br>Back to our main.py section (6th Section)... <br>
 - We will go ahead and validate the model in which we've been given from the `choose_model` function Via `GUARDRAILS.py`.
 
@@ -193,7 +197,8 @@ Back to our main.py section (5th Section)... <br>
 - Highlight of within `EXECUTOR.hunt()` is what `openai_client.chat.completions.create()` does. We had gone ahead and organized some variables to contain our system_message and our user_message and a `results` variable with an empty list which will then be filled out from the function. After all, this function can receive structured data for it to be processed.
 - We just need to remember whatever results we receive from OpenAI will be a string. When we receive strings, it's not something we can actually process structurally AS IS, so we have to make sure to convert it via JSON.loads to actually have it in JSON format.
 
-Back to our main.py section (7th Section)... <br>
+
+<br>Back to our main.py section (7th Section)... <br>
 
 - We go ahead and add a line of code, in case there is no hunt results we exit the program.
 - Next, we go ahead and end our `start_time`.
