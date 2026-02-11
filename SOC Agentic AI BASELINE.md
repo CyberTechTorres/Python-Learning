@@ -6,7 +6,7 @@
 - Python
 - Log(N) Pacific Cyber Range
 
-##  High Level Overview of What This Project Is All About
+##  High-Level Overview of What This Project Is All About
 This is a baseline AI agent SOC analyst (I will continue to add what's needed to make it more accurately automated)
 We are particularly communicating to OpenAI API. 
 We'll have the API then connect to Azure Log Analytics. 
@@ -14,7 +14,7 @@ We will send in a KQL query to retrieve logs from Azure Log Analytics.
 The logs retrieved will be quickly analyzed by OpenAI, which will look for IOCs or suspicious activity. 
 OpenAI will then send its findings over to us in a formatted, structured way that's easy to see. 
 
-##  High Level Technical Overview
+##  High-Level Technical Overview
 
 
 ### 1st. Section of the script
