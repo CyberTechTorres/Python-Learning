@@ -1,4 +1,4 @@
-# [Andres's Conceptuliazing Python Home Lab]() 
+# [Andres's Conceptuliazing Python Home Labs]() 
 
 <img width="600" height="315" alt="image" src="https://github.com/user-attachments/assets/d6875007-a771-49e0-984e-5deeee386897" />
 
