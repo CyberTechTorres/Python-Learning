@@ -14,6 +14,8 @@ We will send in a KQL query to retrieve logs from Azure Log Analytics.
 The logs retrieved will be quickly analyzed by OpenAI, which will look for IOCs or suspicious activity. 
 OpenAI will then send its findings over to us in a formatted, structured way that's easy to see. 
 
+(Include here the steps the Python script goes through at a high level)
+
 ### 1st. Section of the script
 
 <img width="1136" height="326" alt="1st_section" src="https://github.com/user-attachments/assets/f0e9a333-1636-4a78-84a5-45bd846ac2b7" />
