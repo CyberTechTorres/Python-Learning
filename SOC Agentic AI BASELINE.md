@@ -146,33 +146,42 @@ Back to our main.py section (5th Section)... <br>
 - Now, as a result, we have our `threat_hunt_user_message` which consists of our records, our query, and our user message. And now we also have the `threat_hunt_system_message` of how to interpret our `threat_hunt_user_message`
 - `threat_hunt_messages` will hold both variables in which we can index via 0 or 1 to gather whichever one we'd like.
 
-- ### 6th. Section of the script
+### 6th. Section of the script
 <img width="1141" height="177" alt="15th(6th_section)" src="https://github.com/user-attachments/assets/0fa6f759-5eb6-45ea-bae1-b3c195591159" />
 
 - This next part of our main.py script, we are going to go ahead and get the token count for a rough estimate of how much it will cost for AI to analyze our logs and reply with our custom system and user messages. 
 - We are considering our `threat_hunt_messages` variable as a key word argument along with `model` keyword argument for our `count_tokens()` function. As you may remember, `model` is our constant variable `DEAFULT_MODEL` we had in the beginning of our model_management.py file.
- This is what `count_tokens()` looks like:
+  
+ <br>This is what `count_tokens()` looks like:<br>
 <img width="1226" height="323" alt="18th" src="https://github.com/user-attachments/assets/cee81908-1210-4f8e-84d2-8840e40c5488" />
+
 - Pretty simple and straight to the point. We are going to specify the tokenizer process for our `model` via `encoding_for_model` for which is a function provided by the tiktoken library. Sometimes with newer models, we need to specifically request certain tokenizer models such as `cl100k_base`
 - We will then extract the elements within the dictionary within our `messages` variables specifically "role" & "content" values. This data will now be under the `text` variable. This new variable is what we'll go ahead and tokenize to get an estimate.
 - So now we have our tokenizer as `enc` and what we would like to tokenize, which is within the `text` variable. Our results are returned under `number_of_tokens` variable back in our main.py file.
- Back into our main.py section (5th section).... <br>
+  
+ <br>Back into our main.py section (6th section).... <br>
+ 
  Our next line of code is to run `MODEL_MANAGEMENT.choose_model(model, number_of_tokens)` this is what the function looks like:
 <img width="1149" height="915" alt="16th" src="https://github.com/user-attachments/assets/c858b420-15a1-4c85-b73d-4466633b1ebd" />
-- The arguments within this function that perhaps needs clarification is `tier`, within OpenAI depending on which subscription you opt in for and how much you utilize determines your tier. Every tier has boundaries and limitations, such as token per minute. The details of tier limitation is what we had added within our guardrails file under allowed models. Each model within there has all the boundaries and limitations.
-- Another argument within this function that perhaps needs clarification is `assumed_output_tokens` this is a limitation of the amount of tokens we would like to receive from OpenAI for what it had discovered from our threat hut. In this case, we have set it at 500 simply so we make sure we don't spend beyond our budget of 500 output tokens.
-Let's look at our allowed models and its correlating limitations in which `choose_model(model, number_of_tokens)` references:
-<img width="1250" height="233" alt="17th" src="https://github.com/user-attachments/assets/1203f70a-42cf-4fbe-9100-6c99546397cc" />
-Back to our main.py section (6th Section)... <br>
-We will go ahead and validate the model in which we've been given from the `choose_model` function Via guardrails.py.
 
-- ### 7th. Section of the script (FINAL SECTION)
+- The arguments within this function that perhaps needs clarification is `tier`, within OpenAI depending on which subscription you opt in for and how much you utilize determines your tier. Every tier has boundaries and limitations, such as token per minute. The details of tier limitation is what we had added within our `GUARDRAILS` file under allowed models. Each model within there has all the boundaries and limitations.
+- Another argument within this function that perhaps needs clarification is `assumed_output_tokens` this is a limitation of the amount of tokens we would like to receive from OpenAI for what it had discovered from our threat hut. In this case, we have set it at 500 simply so we make sure we don't spend beyond our budget of 500 output tokens.
+  
+<br>Let's look at our allowed models and its correlating limitations in which `choose_model(model, number_of_tokens)` references:<br>
+<img width="1250" height="233" alt="17th" src="https://github.com/user-attachments/assets/1203f70a-42cf-4fbe-9100-6c99546397cc" />
+
+<br>Back to our main.py section (6th Section)... <br>
+- We will go ahead and validate the model in which we've been given from the `choose_model` function Via `GUARDRAILS.py`.
+
+### 7th. Section of the script (FINAL SECTION)
 <img width="1441" height="408" alt="19th(7th_section)" src="https://github.com/user-attachments/assets/19e5169f-aba3-4914-ae5c-5f0e62de5592" />
-- We're going to get ahead and start a timer for how long our actual execution takes for OpenAI to analyze the logs and give us the threat hunt results. 
-- `EXECUTOR.hunt()` we'll be doing all the heavy lifting. Heres what it does: 
+
+- Starting a timer for how long our actual execution takes for OpenAI to analyze the logs and give us the threat hunt results as `start_time`
+
+<br> Next, `EXECUTOR.hunt()` we'll be doing all the heavy lifting here in this section. Heres what it does: <br>
 <img width="1175" height="875" alt="20th" src="https://github.com/user-attachments/assets/eb71d208-7190-4207-976a-e1cc6fd1d3ba" />
 
-- Highlight of this section is what `openai_client.chat.completions.create()` does. We had gone ahead and organized some variables to contain our system_message and our user_message and a `results` variable with an empty list which will then be filled out from the function. After all, this function can receive structured data for it to be processed.
+- Highlight of within `EXECUTOR.hunt()` is what `openai_client.chat.completions.create()` does. We had gone ahead and organized some variables to contain our system_message and our user_message and a `results` variable with an empty list which will then be filled out from the function. After all, this function can receive structured data for it to be processed.
 - We just need to remember whatever results we receive from OpenAI will be a string. When we receive strings, it's not something we can actually process structurally AS IS, so we have to make sure to convert it via JSON.loads to actually have it in JSON format.
 
 Back to our main.py section (7th Section)... <br>
