@@ -10,7 +10,7 @@ This project modifies the SOC Agentic AI baseline to enable log queries using cu
 - Clearly separates API-level query scope from KQL-level filtering logic
 - Improves accuracy and reliability during incident response and threat hunting
 
-### 1st. Steps: Modifying `TOOLS`
+## 1st. Steps: Modifying `TOOLS`
 <be>This SOC Agentic AI analyst uses a JSON schema called `TOOLS` to define its callable functions. Within this schema, there is currently a parameter named time_range_hours.<be>
 
 <be>We will remove this parameter entirely, as we no longer want the tool to rely on it.<be>
@@ -36,7 +36,7 @@ We also added these new fields to the `required` array, this ensure the function
 <br><br>
 
 
-### 2nd. Steps: Modifying `_main.py` file
+## 2nd. Steps: Modifying `_main.py` file
 <img width="1192" height="260" alt="1st" src="https://github.com/user-attachments/assets/821cb9c7-80d6-4806-9262-625b640ecc2d" />
 
 
@@ -49,7 +49,7 @@ This is what the `get_log_query_from_agent(openai_client, user_message, model=mo
 We see the `tool_choice="required"` passed on to `openai_client.chat.completions.create()`. The `"required"` value is what forces the model to produce our updated `TOOLS` call and not give it the option to respond with normal text instead.
 <br><br>
  
-### 3rd. Step: Modifying `UTILITIES.sanitize_query_context()`
+## 3rd. Step: Modifying `UTILITIES.sanitize_query_context()`
 Back into our `_main.py`
 We now move on to line 29: `query_context = UTILITIES.sanitize_query_context(unformatted_query_context)`<br>
 This is where we gather all the context from our keys within `unformatted_query_context` and begin to organize it with if-conditions.<br>
@@ -58,7 +58,7 @@ This is what  `UTILITIES.sanitize_query_context(unformatted_query_context)` func
 <img width="983" height="687" alt="3rd" src="https://github.com/user-attachments/assets/9a1fdc8a-fa40-4cac-b9f6-ea3ab2656bc0" />
 <br><br>
  
-### 4th. Steps: Modifying `UTILITIES.display_query_context()`
+## 4th. Steps: Modifying `UTILITIES.display_query_context()`
 Back into our `_main.py`
 We now move on to line 31: `UTILITIES.display_query_context(query_context)`<br>
 This function displays the finalized log search parameters gathered from the query context. It prints them before execution so the user can review the values that will be used in the KQL query. <br>
@@ -69,7 +69,7 @@ Here's an example of what `display_query_context` function would display with ou
 <img width="720" height="94" alt="5th" src="https://github.com/user-attachments/assets/69e305a5-bd13-4d48-a0a5-9457e3353d59" />
 <br><br>
  
-### 5th. Steps: Modifying `EXECUTOR.query_log_analytics()`
+## 5th. Steps: Modifying `EXECUTOR.query_log_analytics()`
 Back into our `_main.py`<br>
 Line 33: `UTILITIES.display_query_context_rationale(query_context)` stays unmodified.<br>
 Line 35: `GUARDRAILS.validate_tables_and_fields(query_context["table_name"], query_context["fields"])` stays unmodified. <br>
