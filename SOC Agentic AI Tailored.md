@@ -32,8 +32,7 @@ These parameters will be used to dynamically construct the time filter inside th
 
 <img width="1496" height="954" alt="1st_Actual_1st" src="https://github.com/user-attachments/assets/d7b5d9fb-6b73-48f1-987c-d8c2b2ed1658" />
 
-We also added these new fields to the `required` array, which `tool_choice="required"`in the API request forces the model to produce our `TOOLS` call. <br>
-Together, these ensure that a function is always called and that it includes `start_time and end_time` later on line 27 in our `_main.py` file.
+We also added these new fields to the `required` array, this ensure the function includes `start_time` and `end_time`.
 <br><br>
 
 
@@ -42,12 +41,12 @@ Together, these ensure that a function is always called and that it includes `st
 
 
 Once we have our `user_message` and the desired `model` from our previous lines of code in `_main.py`. 
-- We run into the `years_ago` variable. `years_ago` variable will play a huge key role within our `UTILITIES.sanitize_query_context(unformatted_query_context)` on line 29. We will step into this function later to see how it it works.
+- We run into the `years_ago` variable. `years_ago` variable will play a huge key role later on within our `UTILITIES.sanitize_query_context(unformatted_query_context)` on line 29. We'll step into this function momentarily to see its process.
 - Line 27: `unformatted_query_context = EXECUTOR.get_log_query_from_agent(openai_client, user_message, model=model)` is ran next after `years_ago` variable.
 
 This is what the `get_log_query_from_agent(openai_client, user_message, model=model)` function executes: 
 <img width="1327" height="477" alt="2nd" src="https://github.com/user-attachments/assets/eb7e601d-5507-4070-b5ca-3ab224aa9c72" />
-We see our `tool_choice="required"` array we mentioned earlier passed on to `openai_client.chat.completions.create()` which calls out to the API with our messages and query creation. 
+We see the `tool_choice="required"` passed on to `openai_client.chat.completions.create()`. The `"required"` value is what forces the model to produce our `TOOLS` call and not simply give us a respond with normal text instead. Currently, we do only have one tool, API will choose our only tool called `TOOLS`.
 <br><br>
  
 ### 3rd. Step: Modifying `UTILITIES.sanitize_query_context()`
