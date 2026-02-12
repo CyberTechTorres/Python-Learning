@@ -35,8 +35,8 @@ It is important to understand the difference between:
 <be>The parameters defined inside the TOOLS schema should only represent the values that will be injected into the KQL query. We will later define a separate constant variable outside of this schema to control the API query time span.<be>
 
 Instead of time_range_hours, we will add two new parameters to the TOOLS schema:
-- `start_time`
-- `end_time`
+- `start_time` : "description": "Start date/time into a full ISO 8601 UTC timestamp with microsecond precision, formatted like YYYY-MM-DDTHH:MM:SS.ssssssZ. (e.g., 2026-01-08T19:19:21.772188Z)."
+- `end_time` : "description": "End date/time into a full ISO 8601 UTC timestamp with microsecond precision, formatted like YYYY-MM-DDTHH:MM:SS.ssssssZ. (e.g., 2026-01-08T19:19:21.772188Z)."
 
 These parameters will be used to dynamically construct the time filter inside the KQL query.
 
@@ -59,7 +59,7 @@ Once we have our `user_message` and the desired `model` from our previous lines 
 
 This is what the `get_log_query_from_agent(openai_client, user_message, model=model)` function executes: 
 <img width="1327" height="477" alt="2nd" src="https://github.com/user-attachments/assets/eb7e601d-5507-4070-b5ca-3ab224aa9c72" />
- We see our `tool_choice="required"` array we mentioned earlier passed on to `openai_client.chat.completions.create()` which calls out to the API. 
+ We see our `tool_choice="required"` array we mentioned earlier passed on to `openai_client.chat.completions.create()` which calls out to the API with our messages and query creation. 
 
  
 
