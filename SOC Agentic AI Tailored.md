@@ -46,7 +46,7 @@ Once we have our `user_message` and the desired `model` from our previous lines 
 
 This is what the `get_log_query_from_agent(openai_client, user_message, model=model)` function executes: 
 <img width="1327" height="477" alt="2nd" src="https://github.com/user-attachments/assets/eb7e601d-5507-4070-b5ca-3ab224aa9c72" />
-We see the `tool_choice="required"` passed on to `openai_client.chat.completions.create()`. The `"required"` value is what forces the model to produce our `TOOLS` call and not simply give us a respond with normal text instead. Currently, we do only have one tool, API will choose our only tool called `TOOLS`.
+We see the `tool_choice="required"` passed on to `openai_client.chat.completions.create()`. The `"required"` value is what forces the model to produce our updated `TOOLS` call and not give it the option to respond with normal text instead.
 <br><br>
  
 ### 3rd. Step: Modifying `UTILITIES.sanitize_query_context()`
