@@ -2,10 +2,10 @@
 
 ## 🧠 High-Level Overview of What This Project Is All About
 This project modifies the SOC Agentic AI baseline to enable log queries using custom-written KQL (Kusto Query Language) within Log Analytics.<br>
-<br>The current Agentic AI baseline has a limitation: it does not allow precise filtering of logs using a TimeGenerated range between two specific timestamps.<br> This capability is critical for effective threat hunting, especially after establishing a clear timeline for when an attack started and ended. I will show only the lines of code that were modified compared to the previous baseline. Everything else remains the same. <br>
+<br>The current Agentic AI baseline has a limitation: it does not allow precise filtering of logs using a TimeGenerated range between two specific timestamps.<br> This capability is critical for effective threat hunting, especially after establishing a clear timeline for when an attack started and ended. I will show only the lines of code that were modified, along with any lines that directly correlate with those changes. Everything else remains the same as in our baseline Agentic AI.<br>
 
 ## 🎯 What This Project Achieves
-- Removes reliance on coarse, relative time parameters such as time_range_hours
+- Removes reliance on coarse, relative time parameters such as `time_range_hours`
 - Introduces the precise, time-bounded KQL filter `TimeGenerated between (start_time .. end_time)` clause, enabling accurate investigation within known incident timelines.
 - Clearly separates API-level query scope from KQL-level filtering logic
 - Improves accuracy and reliability during incident response and threat hunting
