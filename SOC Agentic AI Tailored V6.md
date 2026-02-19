@@ -30,7 +30,6 @@ This enhancement aligns the automation with real SOC operational standards, wher
 
 * Replaced single confirmation prompt with nested validation loops
 * Added secondary “impact warning” confirmation before isolation
-* Implemented session-aware `machine_is_isolated` logic to prevent duplicate API calls
 * Refactored `get_mde_workstation_id_from_name()` to include exception handling and safe fallbacks
 * Upgraded API response handling using `resp.raise_for_status()`
 * Fixed incorrect status code logic (`if resp.status_code == 201 or 200`)
@@ -97,26 +96,7 @@ This design reflects production SOC tooling where containment actions require es
 
 ---
 
-# 🧩 Step 4: Preventing Redundant Isolation API Calls (Idempotent Logic)
-
-The refactor preserves and strengthens this safeguard:
-
-```python
-if threat_confidence_is_high and (not machine_is_isolated):
-```
-
-This ensures:
-
-* The system does not repeatedly isolate the same machine
-* API calls are not wasted
-* Session state remains consistent
-* Containment actions are idempotent
-
-This is especially important in automated threat loops processing multiple findings.
-
----
-
-# 🧩 Step 5: Hardening Device Lookup with Safe API Error Handling
+# 🧩 Step 4: Hardening Device Lookup with Safe API Error Handling
 
 ### Original Behavior:
 
@@ -142,7 +122,7 @@ Enhancements:
 
 ---
 
-# 🧩 Step 6: Adding Device Existence Validation Before Isolation
+# 🧩 Step 5: Adding Device Existence Validation Before Isolation
 
 A critical defensive check was introduced:
 
@@ -161,7 +141,7 @@ This prevents:
 
 ---
 
-# 🧩 Step 7: Fixing a Critical Status Code Logic Bug
+# 🧩 Step 6: Fixing a Critical Status Code Logic Bug
 
 ### Original (Buggy Logic):
 
@@ -190,7 +170,7 @@ This ensures:
 
 ---
 
-# 🧩 Step 8: Improving SOC-Oriented Operational Messaging
+# 🧩 Step 7: Improving SOC-Oriented Operational Messaging
 
 The updated flow introduces clear analyst-facing messages:
 
