@@ -59,7 +59,7 @@ with:
 
 ## 🧩 Step 1: Migrating from Chat Completions to Responses API
 
-Legacy Chat Completions API architecture:
+Legacy `response` API architecture in `get_query_context()`:
 <img width="929" height="645" alt="1st" src="https://github.com/user-attachments/assets/7cef9db4-c103-4f1d-b8ce-6b0438e227ab" />
 
 Previously, the system used the legacy Chat Completions endpoint:
@@ -88,9 +88,12 @@ with:
 ```
 input=messages
 ```
+Updated `responses` API in `get_query_context()` definition:
 <img width="906" height="418" alt="2nd" src="https://github.com/user-attachments/assets/f7e02d43-1797-4e00-83d2-9504710798b2" />
 
 This transitioned response parsing to the new `response.output` format.
+
+Rather than accessing a fixed field like `choices[0].message.content`, you inspect the structured response via `response.output` or `response.output_text` when available (e.g, `response.output[0]`)
 
 This change was necessary to maintain compatibility with the latest OpenAI SDK and prevent runtime parsing failures.
 <br><br>
@@ -106,6 +109,8 @@ This function:
 - Safely concatenates all `output_text` segments
 - Prevents crashes if the model returns structured or multi-part outputs
 This significantly improves resilience in production environments where output formats may vary between model versions.
+
+<img width="832" height="384" alt="safe_out_put_text" src="https://github.com/user-attachments/assets/9519cacf-938c-4bb1-84d3-6fe9ecc4b065" />
 <br><br>
 
 
@@ -123,11 +128,13 @@ To accommodate this architectural shift, a new parser `_extract_first_tool_call_
 - Handle nested content block variations across SDK versions
 
 This ensures deterministic tool execution in an agentic SOC environment where function calls are required for log analytics queries.
+
+<img width="820" height="518" alt="extract_tool" src="https://github.com/user-attachments/assets/255830cb-bb9d-4c3d-be44-eb4a7622bbf6" />
 <br><br>
 
 
 ## 🧩 Step 4: Removing Deprecated Parameters and Fixing SDK Errors
-During migration, the previous use of:
+Legacy `response` API architecture in `hunt()`:
 <img width="879" height="439" alt="3rd" src="https://github.com/user-attachments/assets/a5a54a50-e625-4479-ad56-641630048712" />
 
 ```
@@ -157,13 +164,17 @@ The `get_query_context()` function was updated to align with the new API by:
 - Switching from `messages=` to `input=`
 - Explicitly defining `tool_choice` using the structured function schema
 - Replacing legacy tool call extraction with the new parser
+
+Updated the tool schema to place `name` as a top-level field in each function definition to comply with the new Responses API tool specification for `tool_choice`:
+<img width="959" height="380" alt="9th" src="https://github.com/user-attachments/assets/4a9a0944-6df2-4716-ae69-23a756ca730b" />
+
+Updated `responses` API in `get_query_context()` definition:
+<img width="890" height="412" alt="8th" src="https://github.com/user-attachments/assets/9a205e52-7915-43ba-8437-79c63d267d9a" />
+
+
+  
 This guarantees that the model consistently returns the required function arguments for KQL query construction while operating within the updated agentic framework.
-
-
-
-
-
-
+<br><br>
 
 ## ✅ Project Conclusion
 This migration was not a simple syntax update, but a full architectural refactor to accommodate the transition from the deprecated Chat Completions API to the modern Responses API.
