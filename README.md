@@ -31,10 +31,7 @@ Unlike simple scripts, the agent operates within a controlled loop that combines
     <td>Windows 11</td>
     <td>Log(N) Pacific Cyber Range</td>
     <td>Python</td>
-  </tr>
-  <tr>
     <td>VS Code</td>
-    <td>HarvardX CS50P</td>
-    <td></td>
   </tr>
 </table>
+
