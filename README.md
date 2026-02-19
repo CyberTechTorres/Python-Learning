@@ -1,14 +1,27 @@
-# [Andres's Conceptuliazing Python Home Labs]()  
+# [Andres’s Agentic AI SOC Automation Platform (Home Lab)]()  
 
-<img width="600" height="315" alt="image" src="https://github.com/user-attachments/assets/d6875007-a771-49e0-984e-5deeee386897" />
-
-
+<img width="500" height="315" alt="image" src="https://github.com/user-attachments/assets/d6875007-a771-49e0-984e-5deeee386897" />
 
 
-##  Overview
-- Python is crucial in cybersecurity because it excels at automating repetitive tasks like log analysis, vulnerability scanning, and threat hunting—freeing analysts for high-value work.
 
-- Here I will document my learnings and conceptualizations. Each file within this repository will present individual labs.
+
+## 🤖 Agentic AI SOC Analyst Project Overview
+This repository documents the development of an Agentic AI SOC Analyst built to assist with automated threat hunting, log analysis, and incident response workflows in a Security Operations Center (SOC) environment.
+
+Rather than being a collection of generic Python labs, each module represents a practical component of an agent-driven security automation pipeline, including:
+- AI-assisted threat hunting via structured tool calls
+- Log Analytics querying with guardrails (time limits, row limits)
+- Human-in-the-loop containment actions (VM isolation)
+- Defensive validation of model outputs (tables, fields, models)
+- Production-safe API integrations (Microsoft Defender for Endpoint & Log Analytics)
+
+Python is used not just for scripting, but as the orchestration layer that connects LLM reasoning, security tooling, and operational safeguards into a cohesive agentic system.
+
+Unlike simple scripts, the agent operates within a controlled loop that combines:
+- LLM reasoning
+- tool execution
+- policy guardrails
+- human-in-the-loop decision making
 
 
 
