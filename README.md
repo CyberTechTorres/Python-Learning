@@ -1,4 +1,4 @@
-# [Andres’s Agentic AI SOC Automation Platform (Home Lab)]()  
+# [Andres’s Agentic AI SOC Automation Platform]()  
 
 <img width="500" height="315" alt="image" src="https://github.com/user-attachments/assets/d6875007-a771-49e0-984e-5deeee386897" />
 
@@ -6,7 +6,7 @@
 
 
 ## 🤖 Agentic AI SOC Analyst Project Overview
-This repository documents the development of an Agentic AI SOC Analyst built to assist with automated threat hunting, log analysis, and incident response workflows in a Security Operations Center (SOC) environment.
+This repository documents the development of my home lab Agentic AI SOC Analyst built to assist with automated threat hunting, log analysis, and incident response workflows in a Security Operations Center (SOC) environment.
 
 Rather than being a collection of generic Python labs, each module represents a practical component of an agent-driven security automation pipeline, including:
 - AI-assisted threat hunting via structured tool calls
