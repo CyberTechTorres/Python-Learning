@@ -54,65 +54,110 @@ with:
 - Updated `get_query_context()` to support structured tool selection via the Responses API
 - Hardened error handling for malformed outputs and missing tool calls
 - Preserved existing SOC guardrails, KQL generation logic, and Defender for Endpoint integration without modification
+<br><br>
 
 
 ## 🧩 Step 1: Migrating from Chat Completions to Responses API
 
+Legacy Chat Completions API architecture:
+<img width="929" height="645" alt="1st" src="https://github.com/user-attachments/assets/7cef9db4-c103-4f1d-b8ce-6b0438e227ab" />
+
+Previously, the system used the legacy Chat Completions endpoint:
+```
+openai_client.chat.completions.create(
+    model=model,
+    messages=messages
+)
+```
+This architecture returned responses in the form:
+```
+response.choices[0].message.content
+```
+and tool calls under:
+```
+response.choices[0].message.tool_calls
+```
+After the API update, this structure became obsolete. The new Responses API returns a structured output object containing multiple content blocks instead of a single message string.
 
 
+The refactor replaced:
+```
+messages=messages
+```
+with:
+```
+input=messages
+```
+<img width="906" height="418" alt="2nd" src="https://github.com/user-attachments/assets/f7e02d43-1797-4e00-83d2-9504710798b2" />
 
+This transitioned response parsing to the new `response.output` format.
 
-
-
-
-
+This change was necessary to maintain compatibility with the latest OpenAI SDK and prevent runtime parsing failures.
+<br><br>
 
 
 ## 🧩 Step 2: Implementing Robust Output Extraction
 
+Unlike the legacy API, the Responses API may return text across multiple content segments rather than a single unified string. To address this, a dedicated helper function `_safe_output_text()` was introduced.
 
-
-
-
-
-
-
-
-
+This function:
+- Prioritizes `response.output_text` when available
+- Falls back to iterating through `response.output[]` content blocks
+- Safely concatenates all `output_text` segments
+- Prevents crashes if the model returns structured or multi-part outputs
+This significantly improves resilience in production environments where output formats may vary between model versions.
+<br><br>
 
 
 ## 🧩 Step 3: Refactoring Tool Calling Architecture
+The legacy implementation extracted tool calls using:
+```
+response.choices[0].message.tool_calls
+```
+However, the Responses API emits tool calls as structured items within `response.output`.
 
+To accommodate this architectural shift, a new parser `_extract_first_tool_call_args()` was implemented to:
+- Traverse structured output items
+- Detect `function_call` and `tool_call` types
+- Extract and safely deserialize JSON arguments
+- Handle nested content block variations across SDK versions
 
-
-
-
-
-
-
-
-
+This ensures deterministic tool execution in an agentic SOC environment where function calls are required for log analytics queries.
+<br><br>
 
 
 ## 🧩 Step 4: Removing Deprecated Parameters and Fixing SDK Errors
+During migration, the previous use of:
+<img width="879" height="439" alt="3rd" src="https://github.com/user-attachments/assets/a5a54a50-e625-4479-ad56-641630048712" />
+
+```
+response_format={"type": "json_object"}
+```
+caused a `TypeError` because this parameter is not supported in the Responses API method signature within the current SDK.
+
+The solution involved:
+- Removing the deprecated parameter
+- Enforcing JSON-only outputs via prompt design
+- Parsing responses explicitly using `json.loads()` after safe text extraction
+
+Updated enforced JSON-only outputs in system prompt:
+<img width="1307" height="531" alt="4th" src="https://github.com/user-attachments/assets/4697bc5d-0aeb-4fea-9fc8-bf166948f562" />
+
+Updated `responses` API in `hunt()` definition:
+<img width="1100" height="412" alt="5th" src="https://github.com/user-attachments/assets/ec57a151-ce35-462e-8289-967bc0c398ea" />
 
 
-
-
-
-
-
-
-
-
+This approach maintains structured output reliability without relying on deprecated API arguments.
+<br><br>
 
 
 ## 🧩 Step 5: Updating Query Context Tool Selection Flow
 
-
-
-
-
+The `get_query_context()` function was updated to align with the new API by:
+- Switching from `messages=` to `input=`
+- Explicitly defining `tool_choice` using the structured function schema
+- Replacing legacy tool call extraction with the new parser
+This guarantees that the model consistently returns the required function arguments for KQL query construction while operating within the updated agentic framework.
 
 
 
