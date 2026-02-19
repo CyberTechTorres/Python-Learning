@@ -1,4 +1,4 @@
-# [Andres's Python Home Lab]() 
+# [Andres's Python Home Lab]()  
 
 ## 🧠 High-Level Overview of What This Project Is All About
 This project modifies the SOC Agentic AI baseline to enable log queries using custom-written KQL (Kusto Query Language) within Log Analytics.<br>
