@@ -66,6 +66,8 @@ The updated version introduces a controlled `while True` loop to enforce strict 
 while True:
     confirm = input("(y/n): ").strip().lower()
 ```
+<img width="1330" height="984" alt="2nd-step" src="https://github.com/user-attachments/assets/c182286d-adb1-4d26-b0b8-ed01518c6627" />
+
 
 This ensures:
 
@@ -85,6 +87,8 @@ A second confirmation layer was added before executing isolation:
 Warning: Isolating this virtual machine may impact connected systems and service dependencies.
 Do you wish to continue? (y/n):
 ```
+<img width="1411" height="978" alt="3rd-step" src="https://github.com/user-attachments/assets/d3ce8fc1-985e-41aa-8fda-c84f8a26156c" />
+
 
 This introduces:
 
@@ -113,6 +117,8 @@ except requests.exceptions.RequestException as e:
     print("Error connecting to MDE API")
     return None
 ```
+<img width="1064" height="818" alt="4th" src="https://github.com/user-attachments/assets/79c88347-2c5f-495d-a53c-ef694439be18" />
+
 
 Enhancements:
 
@@ -132,6 +138,9 @@ if machine_id:
 else:
     print("[!] Could not isolate: Device ID not found.")
 ```
+<img width="1127" height="797" alt="5th" src="https://github.com/user-attachments/assets/ea1bca7b-5a51-486a-8541-ebb01b50cd3d" />
+If there is actually an ID, then it'll go ahead and execute the if condition, but if there is no ID, if it's return none, then the else condition executes.<br>
+<br>
 
 This prevents:
 
@@ -160,6 +169,8 @@ resp.raise_for_status()
 if resp.status_code in (200, 201, 202, 204):
     return True
 ```
+<img width="1138" height="703" alt="6th" src="https://github.com/user-attachments/assets/c4b2023f-9f8c-4757-809f-d6f5d19eafb3" />
+
 
 This ensures:
 
@@ -187,7 +198,6 @@ This improves usability and transparency during live investigations.
 
 * Human-in-the-loop containment control
 * Defensive input validation
-* Idempotent action handling
 * API fault tolerance
 * Safe failure patterns
 * Operational impact awareness
