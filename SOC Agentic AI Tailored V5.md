@@ -1,7 +1,7 @@
 # [Andres's Python Home Lab]()  
 
 ## 🧠 High-Level Overview of What This Project Is All About
-When querying Microsoft Log Analytics during threat hunting, result sets can become extremely large—especially when querying high-volume tables like DeviceProcessEvents or DeviceNetworkEvents. Large result sets introduce several practical issues in a SOC automation pipeline:
+When querying Microsoft Log Analytics during threat hunting, result sets can become extremely large especially when querying high-volume tables like DeviceProcessEvents or DeviceNetworkEvents. Large result sets introduce several practical issues in a SOC automation pipeline:
 
 - slower execution time and increased API latency
 - excessive memory usage when converting results into a DataFrame
