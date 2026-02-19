@@ -68,7 +68,6 @@ response = log_analytics_client.query_workspace(
     timespan=API_TIME_QUERY_LIMIT
 )
 ```
-<br><br>
 
 ## ✅ Project Conclusion
 By introducing a centralized 365-day timespan guardrail and enforcing it at both the orchestration and execution layers, the threat hunting pipeline now prevents oversized Log Analytics queries that can cause timeouts, excessive scanning, and unpredictable performance.
