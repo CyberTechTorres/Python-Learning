@@ -1,4 +1,4 @@
-# [Andres's Python Home Lab]() 
+# [Andres's Python Home Lab]()  
 
 ## 🧠 High-Level Overview of What This Project Is All About
 During development, I encountered a limitation where the API could not accurately resolve relative time inputs (e.g., “four hours ago” or “seven days ago”) because the model does not have inherent awareness of the current UTC time.
