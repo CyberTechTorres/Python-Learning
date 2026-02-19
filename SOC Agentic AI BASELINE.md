@@ -1,4 +1,4 @@
-# [Andres's Python Home Lab]() 
+# [Andres's Python Home Lab]()  
 
 ## 🧠 High-Level Overview of What This Project Is All About
 This project implements a baseline AI-powered SOC analyst agent that automates log investigation by combining Azure Log Analytics, KQL, and the OpenAI API.<br>
