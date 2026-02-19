@@ -20,7 +20,8 @@
 
 
 ## 🧩 Step 1: 
-<img width="718" height="289" alt="1st" src="https://github.com/user-attachments/assets/e039eadd-7599-4ebd-a1fc-c9887a863351" />
+<img width="566" height="318" alt="1st" src="https://github.com/user-attachments/assets/5a056d7d-b629-4ecf-8273-d833e223e8e2" />
+
 
 
 <br><br>
