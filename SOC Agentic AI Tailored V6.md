@@ -12,7 +12,7 @@ In real-world security operations, isolating a machine is a disruptive containme
 
 To address this, I refactored the isolation workflow into a **multi-layered, defensive control flow** that introduces structured confirmation loops, safe API handling, and idempotent isolation logic.
 
-This enhancement aligns the automation with real SOC operational standards, where containment actions must be deliberate, validated, and resilient to API or data inconsistencies.
+This enhancement aligns the automation with real SOC operational standards, where containment actions must be deliberate, and validated.
 
 ---
 
