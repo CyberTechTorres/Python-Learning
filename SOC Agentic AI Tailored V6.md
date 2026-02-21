@@ -139,7 +139,7 @@ else:
     print("[!] Could not isolate: Device ID not found.")
 ```
 <img width="1127" height="797" alt="5th" src="https://github.com/user-attachments/assets/ea1bca7b-5a51-486a-8541-ebb01b50cd3d" />
-If there is actually an ID, then it'll go ahead and execute the if condition, but if there is no ID, if it's return none, then the else condition executes.<br>
+If there is actually an ID, then it'll go ahead and execute the if condition, but if there is no ID (if it's return none) then the else condition executes.<br>
 <br>
 
 This prevents:
