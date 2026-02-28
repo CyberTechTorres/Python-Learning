@@ -1,7 +1,7 @@
 # [Andres’s Agentic AI SOC Automation Platform]()  
 
 
-
+<img width="1447" height="522" alt="workflow" src="https://github.com/user-attachments/assets/fa81ba11-6dbf-4531-be82-ad975ad7a3c1" />
 
 
 ## 🤖 Agentic AI SOC Analyst Project Overview
@@ -34,4 +34,5 @@ Unlike simple scripts, the agent operates within a controlled loop that combines
     <td>VS Code</td>
   </tr>
 </table>
+
 
