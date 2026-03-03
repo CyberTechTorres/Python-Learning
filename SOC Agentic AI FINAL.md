@@ -1,4 +1,4 @@
-# 🛡️ Agentic AI SOC Analyst — Finial Improvements & Changelog
+# 🛡️ Agentic AI SOC Analyst — Finial Improvements & Changelog 
 
 > A Python-based agentic AI that performs **automated threat hunting** against Microsoft Defender for Endpoint (MDE), Azure AD, and Azure resource logs — then takes **real containment actions** when high-confidence threats are found.
 
