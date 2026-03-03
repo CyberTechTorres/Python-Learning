@@ -1,4 +1,4 @@
-# 🛡️ Agentic AI SOC Analyst — Improvements & Changelog
+# 🛡️ Agentic AI SOC Analyst — Finial Improvements & Changelog
 
 > A Python-based agentic AI that performs **automated threat hunting** against Microsoft Defender for Endpoint (MDE), Azure AD, and Azure resource logs — then takes **real containment actions** when high-confidence threats are found.
 
@@ -82,12 +82,19 @@ NSG_RESOURCE_ID = os.environ.get("NSG_RESOURCE_ID", "")
 timespan=timedelta(hours=timerange_hours)
 ```
 
-**After:** Introduced explicit `start_time` and `end_time` ISO 8601 timestamps with microsecond precision. The LLM now resolves relative time references (e.g., "last 48 hours") against the current UTC time injected into the system prompt.
+**After:** Introduced explicit `start_time` and `end_time` ISO 8601 timestamps with microsecond precision. The LLM now constructs user submitted time ranges into into a KQL query. 
 
 ```python
 # ✅ After — precise time windows
 | where TimeGenerated between (datetime({start_time}) .. datetime({end_time}))
 ```
+
+Also with added prompt engineering enhancements, this allows for relative time references (e.g., "last 48 hours") against the current UTC time injected into my new system prompt.
+
+**Before:** `SYSTEM_PROMPT_TOOL_SELECTION` was a static dictionary.
+
+**After:** Replaced with `get_system_prompt_tool_selection()` — a function that injects the **current UTC time** into the prompt at runtime.
+<br>This allows the LLM to resolve relative time references ("last 48 hours", "yesterday") against an accurate clock.
 
 **Why it matters:** Eliminates ambiguity, gives analysts exact control over the investigation window, and produces reproducible queries.
 
@@ -286,12 +293,6 @@ The report includes:
 
 ## 🧠 Prompt Engineering Enhancements
 
-### Dynamic System Prompt for Tool Selection
-
-**Before:** `SYSTEM_PROMPT_TOOL_SELECTION` was a static dictionary.
-
-**After:** Replaced with `get_system_prompt_tool_selection()` — a function that injects the **current UTC time** into the prompt at runtime. This allows the LLM to resolve relative time references ("last 48 hours", "yesterday") against an accurate clock.
-
 ### Tool Schema Updates
 
 - Added `start_time` and `end_time` parameters (ISO 8601 UTC with microsecond precision)
@@ -331,7 +332,6 @@ Expanded allowed fields across multiple tables:
 
 | Setting | Before | After |
 |---------|--------|-------|
-| Default Tier | `"4"` | `"1"` (more conservative default) |
 | Assumed Output Tokens | `500` | `800` (more realistic estimate) |
 | Model Config Format | Inline one-liners | Expanded multi-line dicts for readability |
 | `gpt-4.1` Input Cost | `$1.00/M` | `$2.00/M` (updated pricing) |
@@ -357,7 +357,6 @@ Expanded allowed fields across multiple tables:
 - [ ] Slack/Teams webhook integration for real-time alerting
 - [ ] Configurable confidence thresholds for containment actions
 - [ ] Audit logging of all containment actions taken per session
-- [ ] Support for Azure Sentinel / Microsoft Sentinel integration
 
 ---
 
