@@ -22,7 +22,7 @@ Unlike simple scripts, the agent operates within a controlled loop that combines
 - policy guardrails
 - human-in-the-loop decision making
 
-
+**[SOC Analyst Project: Summary of Final Improvements and Changes](https://github.com/CyberTechTorres/Python-Learning/blob/main/SOC%20Agentic%20AI%20FINAL.md)**
 
 <h2>Platforms and Languages Leveraged</h2>
 
